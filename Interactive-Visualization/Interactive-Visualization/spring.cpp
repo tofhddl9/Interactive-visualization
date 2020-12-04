@@ -16,7 +16,7 @@ void Spring::SetLength(float len)
 
 void Spring::SetSpringCoefficient(float sc)
 {
-    sc_ = c;
+    sc_ = sc;
 }
 
 void Spring::SetDampingCoefficient(float dc)
@@ -24,24 +24,32 @@ void Spring::SetDampingCoefficient(float dc)
     dc_ = dc;
 }
 
-glm::vec3 Spring::getForce(PointMass* p)
+glm::vec3 Spring::GetForce(PointMass* p)
 {
-    if (p != pm1_ && p != pm2_) return glm::vec3(0, 0, 0);
-
     float dist = glm::distance(pm1_->GetPosition(), pm2_->GetPosition());
-    float displacement = dist - length_;
+    float hook = sc_ * (dist - length_);
+
     glm::vec3 dir = glm::normalize(pm2_->GetPosition() - pm1_->GetPosition());
-    float hook = sc_ * displacement;
-    
-    glm::vec3 relV = pm2_->GetVelocity() - pm1_->GetVelocity();
-    float damping = dc_ * glm::dot(relV, dir);
+    float damping = -dc_ * glm::dot((pm2_->GetVelocity() + pm1_->GetVelocity()), dir);
 
-    glm::vec3 internalForce = dir * (hook + damping);
+    if (p == pm1_)
+        return (hook + damping) * dir;
+    else
+        return (-hook + damping) * dir;
+}
 
-    if (p == pm1_) {
-        return internalForce;
-    }
-    else {
-        return -internalForce;
-    }
+void Spring::Render()
+{
+    glColor4f(0.0, 0.3, 1.0, 1.0);
+    glLineWidth(1.0f);
+
+    glBegin(GL_LINES);
+    glVertex3f(pm1_->GetPosition().x,
+        pm1_->GetPosition().y,
+        pm1_->GetPosition().z);
+
+    glVertex3f(pm2_->GetPosition().x,
+        pm2_->GetPosition().y,
+        pm2_->GetPosition().z);
+    glEnd();
 }
