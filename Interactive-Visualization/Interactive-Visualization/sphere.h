@@ -20,14 +20,13 @@ public:
 
 private:
 
+    void ClearArrays();
     void BuildVertices();
     void BuildInterleavedVertices();
-    void ClearArrays();
 
     void AddVertex(float x, float y, float z);
     void AddNormal(float x, float y, float z);
-    void AddTexCoord(float s, float t);
-    void AddIndices(unsigned int i1, unsigned int i2, unsigned int i3);
+    void AddIndices(int idx1, int idx2, int idx3);
 
     glm::vec3 pos_;
     float radius_;
@@ -36,8 +35,7 @@ private:
 
     std::vector<float> vertices_;
     std::vector<float> normals_;
-    std::vector<float> texCoords_;
-    std::vector<unsigned int> indices_;
+    std::vector<int> indices_;
 
     int interleavedStride_;
     std::vector<float> interleavedVertices_;
