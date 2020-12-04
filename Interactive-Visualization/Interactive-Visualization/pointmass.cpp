@@ -46,9 +46,10 @@ void PointMass::AddSpring(Spring* spring)
 
 glm::vec3 PointMass::ComputeForces()
 {
+    const glm::vec3 GRAVITY = glm::vec3(0.0f, -9.8f, 0.0f);
     glm::vec3 force = mass_ * GRAVITY;
     for (auto spring : springs_) {
-        force += spring->GetForce();
+        force += spring->GetForce(this);
     }
 
     return force;
@@ -56,6 +57,8 @@ glm::vec3 PointMass::ComputeForces()
 
 void PointMass::Update(float dt)
 {
+    if (isFixed_) return;
+
     acceleration_ = ComputeForces() / mass_;
     velocity_ += acceleration_ * dt;
     position_ += velocity_ * dt;
@@ -63,7 +66,9 @@ void PointMass::Update(float dt)
 
 void PointMass::Render()
 {
-    glColor3f(0.0f, 0.5f, 0.8f);
+    glPointSize(3.0);
+    glColor4f(1.0, 1.0, 0.3, 0.5);
+
     glBegin(GL_POINTS);
     glVertex3f(position_.x, position_.y, position_.z);
     glEnd();
