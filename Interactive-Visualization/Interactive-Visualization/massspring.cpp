@@ -18,14 +18,21 @@ PointMass* MassSpring::AddMass(float mass, glm::vec3 pos)
     return pm;
 }
 
-Spring* MassSpring::AddSpring(float sc, float dc, float len, PointMass* pm1, PointMass* pm2)
+Spring* MassSpring::AddSpring(float len, float sc, float dc, PointMass* pm1, PointMass* pm2)
 {
-    Spring* sp = new Spring(sc, dc, len, pm1, pm2);
+    Spring* sp = new Spring(len, sc, dc, pm1, pm2);
     pm1->AddSpring(sp);
     pm2->AddSpring(sp);
     springs_.push_back(sp);
 
     return sp;
+}
+
+void MassSpring::AddFace(PointMass* pm1, PointMass* pm2, PointMass* pm3)
+{
+    faces_.push_back(pm1);
+    faces_.push_back(pm2);
+    faces_.push_back(pm3);
 }
 
 void MassSpring::Update(float dt)

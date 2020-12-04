@@ -2,8 +2,8 @@
 
 Simulation::Simulation()
 {
-	GLfloat ambient[] = { 0.5, 0.5, 0.5, 1 };
-	GLfloat diffuse[] = { 0.7, 0.7, 0.7, 1 };
+	GLfloat ambient[] = { 0.4, 0.4, 0.4, 1 };
+	GLfloat diffuse[] = { 0.8, 0.8, 0.8, 1 };
 	GLfloat matSpecular[] = { 1, 1, 1, 1 };
 	GLfloat matShininess[] = { 128 };
 
@@ -23,16 +23,16 @@ Simulation::Simulation()
 	glEnable(GL_DEPTH_TEST);
 
 	//scene1
-	cloth_ = new Cloth(12, 18, 0.3f, 0.33f, 25.0f, 0.05f);
-	sphere_ = new Sphere(glm::vec3(5, 1, 12), 1.0f, 36, 36);
+	//cloth_ = new Cloth(12, 18, 0.3f, 0.33f, 25.0f, 0.05f);
+	//sphere_ = new Sphere(glm::vec3(5, 1, 12), 1.0f, 36, 36);
 
 	//scene2 : camera vel 0.5
 	//cloth_ = new Cloth(12, 20, 0.3f, 0.25f, 25.0f, 0.05f);
 	//sphere_ = new Sphere(glm::vec3(8, 1.5, 12), 0.5f, 36, 36);
 
 	//scene3 cloth revision
-	//cloth_ = new Cloth(12, 20, 0.3f, 0.25f, 25.0f, 0.05f);
-	//sphere_ = new Sphere(glm::vec3(5.2, 1.0, 11.5), 1.0f, 36, 36);
+	cloth_ = new Cloth(12, 20, 0.3f, 0.25f, 25.0f, 0.05f);
+	sphere_ = new Sphere(glm::vec3(5.2, 1.0, 11.5), 1.0f, 36, 36);
 
 	//scene4 cloth vertical speed 1/150
 	//cloth_ = new Cloth(20, 20, 0.3f, 0.25f, 20.0f, 0.1f);

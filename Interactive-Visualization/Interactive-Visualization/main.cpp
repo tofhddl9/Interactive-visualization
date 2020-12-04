@@ -9,13 +9,9 @@
 #include "camera.h"
 #include "simulation.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
 const int WINDOW_WIDTH = 720;
 const int WINDOW_HEIGHT = 720;
 
-//MassSpring massSpring;
 Simulation simulation;
 Camera camera;
 
@@ -26,7 +22,7 @@ unsigned int textureID;
 void Initialize()
 {
 	simulation = Simulation();
-	camera = Camera(glm::vec3(9.0, 3.3, 16.1), glm::vec3(-0.63, -0.25, -0.72));
+	camera = Camera(glm::vec3(12.1, 4.5, 19.7), glm::vec3(-0.63, -0.25, -0.72));
 
 }
 
@@ -98,6 +94,9 @@ void PollKeyboard(unsigned char key, int x, int y)
 	pressedKey[key] = true;
 	if (key == '.') {
 		simulation.SetAllUnFixed();
+	}
+	if (key == '/') {
+		Initialize();
 	}
 	glutPostRedisplay();
 }
